@@ -1,0 +1,66 @@
+.color {
+    width: 50%;
+    height: 50%;
+    display: inline-block;
+  }
+
+.celeste{
+    background: #22a6b3;
+}
+.verde{
+    background: #6ab04c;
+}
+.amarillo{
+    background: #f0932b;
+}
+.rosa{
+    background: #be2edd;
+}
+.left {
+    float: left;
+}
+
+.right {
+    float: left;
+}
+
+.celeste {
+    background: #22a6b3;
+}
+
+.celeste.light {
+    background: #7ed6df;
+}
+
+.rosa {
+    background: #be2edd;
+}
+
+.rosa.light {
+    background: #e056fd;
+}
+
+.naranja {
+    background: #f0932b;
+}
+
+.naranja.light {
+    background: #ffbe76;
+}
+
+.verde {
+    background: #6ab04c;
+}
+
+.verde.light {
+    background: #badc58;
+}
+.simon{
+    height: 40vh;
+    width: 40vh;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 0 auto;
+    grid-column-start: 1;
+    grid-row: 1;
+}
