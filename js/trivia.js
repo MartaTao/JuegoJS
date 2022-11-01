@@ -29,17 +29,15 @@ function muestraPregunta(i){
         respuesta += `<input type="radio" name="respuesta" value=${index} id="respuesta${index}">`+r[index]+'<br>';
     }
     document.getElementById("pregunta").innerHTML = pregunta;
-    document.getElementById("respuestas").innerHTML = respuesta;
+    document.getElementById("opciones").innerHTML = respuesta;
     validarRespuesta() 
 }
 let lineaHistoria = 0;
-let contHistoria = 0;
 function muestraTexto(){
     let texto = historia[lineaHistoria];
     document.getElementById("texto").innerHTML = texto;
-    contHistoria++;
     lineaHistoria++;
-    if(contHistoria<=3){
+    if(lineaHistoria<historia.length){
         setTimeout(() => {
             muestraTexto();
         }, tiempoTexto);
@@ -67,7 +65,13 @@ function validarRespuesta(){
         }else{
             document.getElementById("pregunta").innerHTML="";
             document.getElementById("respuestas").innerHTML="";
-            document.getElementById("texto").innerHTML=`Has completado la primera prueba con un total de ${numAciertos} de 5 preguntas`;
+            if(numAciertos>=3){
+                document.getElementById("texto").innerHTML=`Enhorabuena has completado y pasado con éxito la primera prueba con un total de ${numAciertos} de 5 preguntas`;
+                localStorage.setItem('prueba1','pasada');
+            }else{
+                document.getElementById("texto").innerHTML=`Has completado la prueba pero no la has pasado has acertado ${numAciertos} de 5 preguntas`;
+                localStorage.setItem('prueba1','fallada');
+            }
             setTimeout(() => {
                 muestraTexto();
             }, tiempoTexto);
@@ -86,7 +90,13 @@ function validarRespuesta(){
         }else{
             document.getElementById("pregunta").innerHTML="";
             document.getElementById("respuestas").innerHTML="";
-            document.getElementById("texto").innerHTML=`Has completado la primera prueba con un total de ${numAciertos} de 5 preguntas`;
+            if(numAciertos>=3){
+                document.getElementById("texto").innerHTML=`Enhorabuena has completado y pasado con éxito la primera prueba con un total de ${numAciertos} de 5 preguntas`;
+                localStorage.setItem('prueba1','pasada');
+            }else{
+                document.getElementById("texto").innerHTML=`Has completado la prueba pero no la has pasado has acertado ${numAciertos} de 5 preguntas`;
+                localStorage.setItem('prueba1','fallada');
+            }
             setTimeout(() => {
                 muestraTexto();
             }, tiempoTexto);
@@ -103,7 +113,13 @@ function validarRespuesta(){
         }else{
             document.getElementById("pregunta").innerHTML="";
             document.getElementById("respuestas").innerHTML="";
-            document.getElementById("texto").innerHTML=`Has completado la primera prueba con un total de ${numAciertos} de 5 preguntas`;
+            if(numAciertos>=3){
+                document.getElementById("texto").innerHTML=`Enhorabuena has completado y pasado con éxito la primera prueba con un total de ${numAciertos} de 5 preguntas`;
+                localStorage.setItem('prueba1','pasada');
+            }else{
+                document.getElementById("texto").innerHTML=`Has completado la prueba pero no la has pasado has acertado ${numAciertos} de 5 preguntas`;
+                localStorage.setItem('prueba1','fallada');
+            }
             setTimeout(() => {
                 muestraTexto();
             }, tiempoTexto);
@@ -120,7 +136,13 @@ function validarRespuesta(){
         }else{
             document.getElementById("pregunta").innerHTML="";
             document.getElementById("respuestas").innerHTML="";
-            document.getElementById("texto").innerHTML=`Has completado la primera prueba con un total de ${numAciertos} de 5 preguntas`;
+            if(numAciertos>=3){
+                document.getElementById("texto").innerHTML=`Enhorabuena has completado y pasado con éxito la primera prueba con un total de ${numAciertos} de 5 preguntas`;
+                localStorage.setItem('prueba1','pasada');
+            }else{
+                document.getElementById("texto").innerHTML=`Has completado la prueba pero no la has pasado has acertado ${numAciertos} de 5 preguntas`;
+                localStorage.setItem('prueba1','fallada');
+            }
             setTimeout(() => {
                 muestraTexto();
             }, tiempoTexto);

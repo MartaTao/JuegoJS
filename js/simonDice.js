@@ -2,7 +2,7 @@ const numRonda = document.getElementById('ronda');
 const botones = document.getElementsByClassName('square');
 const totalRondas=5;
 class Simon{
-    constructor(botones){
+    constructor(botones, ronda){
         this.ronda=0;
         this.posicion=0;
         this.totalRondas= totalRondas;
@@ -10,7 +10,9 @@ class Simon{
         this.velocidad=1000;
         this.botonesBloqueados=true;
         this.botones=Array.from(botones);
-        this.display=ronda;
+        this.display={
+            ronda
+        };
         this.errorSonido= new Audio('../other/error.wav');
         this.botonesSonidos = [new Audio('../other/1.mp3'),new Audio('../other/2.mp3'),new Audio('../other/3.mp3'),new Audio('../other/4.mp3')];
     }
@@ -40,26 +42,40 @@ class Simon{
     //Si los botones no estan bloqueados valida que el color sea el correcto
     buttonClick(value){
         if(!this.botonesBloqueados){
-            this.esColorCorrecto(color);
+            this.esColorCorrecto(value);
         } 
     }
     esColorCorrecto(color){
-        if(this.secuencia[this.posicion]==value){
+        if(this.secuencia[this.posicion]==color){
             this.botonesSonidos[color].play();
             if(this.ronda == this.posicion){
-                this.updateRound(this.ronda++);
+                this.updateRound(this.ronda+1);
                 this.velocidad/=1.02;
                 this.haTermiando();
             }else{
                 this.posicion++;
             }
         }else{
-
+            this.errorSonido.play();
+            document.getElementById("texto").innerHTML=`Vaya no has conseguido superar la prueba`;
+            localStorage.setItem('prueba2','fallada');
+            if(localStorage.getItem('prueba1')=='fallada'&& localStorage.getItem('prueba2')=='fallada'){
+                setTimeout(() => {
+                    window.open("gameOver.html");
+                    window.close();
+                }, tiempoTexto);
+            }else{
+                muestraTexto();
+            }
         }
     }
     haTermiando(){
         if(this.ronda==this.totalRondas){
-
+            document.getElementById("texto").innerHTML=`Enhorabuena has completado la segunda prueba`;
+            localStorage.setItem('prueba2','pasada');
+            setTimeout(() => {
+                muestraTexto();
+            }, tiempoTexto);
         }else{
             this.posicion=0;
             this.muestraSecuencia();
@@ -69,9 +85,40 @@ class Simon{
         this.botonesBloqueados=true;
         let secuenciaIndex=0;
         let contador=setInterval(()=>{
-
+            const boton = this.botones[this.secuencia[secuenciaIndex]];//Selecciona el boton que debe iluminar
+            this.botonesSonidos[this.secuencia[secuenciaIndex]].play();//realiza el sonido correspondiente al boton
+            this.iluminaBoton(boton);
+            setTimeout(()=>this.iluminaBoton(boton),this.velocidad/2);
+            secuenciaIndex++;
+            if(secuenciaIndex>this.ronda){
+                this.botonesBloqueados=false;
+                clearInterval(contador);
+            }
         },this.velocidad);
     }
+    iluminaBoton(boton){
+        boton.classList.toggle('active');
+    }
 }
-
-const simon= new Simon(botones);
+let lineaHistoria = 0;
+const tiempoTexto=5000;
+let historia = ["Ya solo te queda la última prueba!","Para superarla necesitarás saberte el diccionario...","No te preocupes no son definiciones demasiadas rebuscadas","...... o eso creo"];
+function muestraTexto(){
+    let texto = historia[lineaHistoria];
+    document.getElementById("texto").innerHTML = texto;
+    lineaHistoria++;
+    if(lineaHistoria<historia.length){
+        setTimeout(() => {
+            muestraTexto();
+        }, tiempoTexto);
+    }else{
+        setTimeout(() => {
+            window.open("definidos.html");
+            window.close();
+        }, tiempoTexto);
+    }
+}
+const simon= new Simon(botones, numRonda);
+setTimeout(()=>{
+    simon.startGame();
+},2000);
