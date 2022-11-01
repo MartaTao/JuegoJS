@@ -1,18 +1,32 @@
-.quiz-box .pregunta{
-
+body{
+    margin:0;
+    font-size:16px;
+    background-color: #000;
 }
-.quiz-box .respuesta{
-
+*{
+    box-sizing: border-box;
+    margin:0;
+    padding:0;
+    outline : none
 }
-.quiz-box .respuesta #opciones{
-    background-color:  #ccc;
-    padding: 15px;
-    font-size: 16px;
-    Line-height: 22px;
-    color: #000000;
-    border-radius : 5px;
-    margin-bottom: 10px;
+.custom-box{
+    max-width:700px;
+    background-color:#ffffff;
+    margin:40px auto;
+    padding:30px;
+    border-radius:10px;
 }
-.quiz-box .indicador-respuesta{
-
+.quiz-box .question-number{
+    font-size: 18px;
+    font-weight: 600;
+    border-bottom : 1px solid #cccccc;
+    padding-bottom: 10px;
+    line-height: 25px
+}
+.quiz-box .question-text{
+    font-size: 22px;
+    Line-height: 28px;
+    font-weight: 400;
+    padding: 20px 0;
+    margin:0;
 }

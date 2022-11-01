@@ -13,23 +13,27 @@ let cuestionario = [
      "Si lo sé. Me he dado cuenta, ya Si quiero vencer, un buen entrenador tengo que ser. Pero una pregunta, me voy a tener que hacer.Quién soy yo? Un misterio es"]},
 ];
 let historia = ["Una prueba menos, ya solo te quedan por realizar 2 más", "No te relajes la siguiente prueba requiere buena memoria","Esperemos que no seas daltónico", "Suerte!"];
-let respuestaCorrecta = [0,3,1,2,0]
+let respuestaCorrecta = ["respuesta0","respuesta3","respuesta1","respuesta2","respuesta0"];
 let numPregunta = 0;
 let numAciertos = 0;
-let pruebasPasadas = 0;
 const tiempoTexto=5000;
 let i =0;
+let totalPreguntas=cuestionario.length;
+const optionContainer=document.querySelector(".option-container")
 function muestraPregunta(i){
     let p = cuestionario[i];
     let pregunta = `<p>${p.pregunta}</p>`;
     let r = p.respuestas;
-    let respuesta = "";
     let index=0;
     for(;index<r.length;index++){
-        respuesta += `<input type="radio" name="respuesta" value=${index} id="respuesta${index}">`+r[index]+'<br>';
+        const option= document.createElement("div");
+        option.innerHTML=r[index];
+        option.id=`respuesta${index}`;
+        option.className="option";
+        optionContainer.appendChild(option);
     }
-    document.getElementById("pregunta").innerHTML = pregunta;
-    document.getElementById("opciones").innerHTML = respuesta;
+    document.querySelector(".question-number").innerHTML=`Pregunta ${numPregunta+1} de ${totalPreguntas}`;
+    document.querySelector(".question-text").innerHTML = pregunta;
     validarRespuesta() 
 }
 let lineaHistoria = 0;
@@ -54,98 +58,41 @@ function $(selector){
 }
 muestraPregunta(i);
 function validarRespuesta(){
-    $("#respuesta0").addEventListener("click",function(){
-        let eleccion = this.value;
-        if(eleccion == respuestaCorrecta[numPregunta]){
-            numAciertos++;
-        }
-        numPregunta++;
-        if(numPregunta<5){
-            muestraPregunta(numPregunta);
-        }else{
-            document.getElementById("pregunta").innerHTML="";
-            document.getElementById("respuestas").innerHTML="";
-            if(numAciertos>=3){
-                document.getElementById("texto").innerHTML=`Enhorabuena has completado y pasado con éxito la primera prueba con un total de ${numAciertos} de 5 preguntas`;
-                localStorage.setItem('prueba1','pasada');
-            }else{
-                document.getElementById("texto").innerHTML=`Has completado la prueba pero no la has pasado has acertado ${numAciertos} de 5 preguntas`;
-                localStorage.setItem('prueba1','fallada');
+    let options=[]
+    options=document.getElementsByClassName("option");
+    let z=0;
+    for(;z<options.length;z++){
+            options[z].addEventListener("click",function(){
+            let options2=[];
+            options2=document.getElementsByClassName("option");
+            let y=options2.length-1;
+            let eleccion = this.id;
+            if(eleccion == respuestaCorrecta[numPregunta]){
+                numAciertos++;
             }
-            setTimeout(() => {
-                muestraTexto();
-            }, tiempoTexto);
-            
-        }
-        
-    });
-    $("#respuesta1").addEventListener("click",function(){
-        let eleccion = this.value;
-        if(eleccion == respuestaCorrecta[numPregunta]){
-            numAciertos++;
-        }
-        numPregunta++;
-        if(numPregunta<5){
-            muestraPregunta(numPregunta);
-        }else{
-            document.getElementById("pregunta").innerHTML="";
-            document.getElementById("respuestas").innerHTML="";
-            if(numAciertos>=3){
-                document.getElementById("texto").innerHTML=`Enhorabuena has completado y pasado con éxito la primera prueba con un total de ${numAciertos} de 5 preguntas`;
-                localStorage.setItem('prueba1','pasada');
+            numPregunta++;
+            if(numPregunta<5){
+                for(;y>=0;y--){
+                    optionContainer.removeChild(options2[y]);
+                }
+                muestraPregunta(numPregunta); 
             }else{
-                document.getElementById("texto").innerHTML=`Has completado la prueba pero no la has pasado has acertado ${numAciertos} de 5 preguntas`;
-                localStorage.setItem('prueba1','fallada');
+                document.querySelector(".question-number").innerHTML="";
+                document.querySelector(".question-text").innerHTML="";
+                document.querySelector(".option-container").innerHTML="";
+                if(numAciertos>=3){
+                    document.getElementById("texto").innerHTML=`Enhorabuena has completado y pasado con éxito la primera prueba con un total de ${numAciertos} de 5 preguntas`;
+                    localStorage.setItem('prueba1','pasada');
+                }else{
+                    document.getElementById("texto").innerHTML=`Has completado la prueba pero no la has pasado has acertado ${numAciertos} de 5 preguntas`;
+                    localStorage.setItem('prueba1','fallada');
+                }
+                setTimeout(() => {
+                    muestraTexto();
+                }, tiempoTexto);
+                
             }
-            setTimeout(() => {
-                muestraTexto();
-            }, tiempoTexto);
-        }
-    });
-    $("#respuesta2").addEventListener("click",function(){
-        let eleccion = this.value;
-        if(eleccion == respuestaCorrecta[numPregunta]){
-            numAciertos++;
-        }
-        numPregunta++;
-        if(numPregunta<5){
-            muestraPregunta(numPregunta);
-        }else{
-            document.getElementById("pregunta").innerHTML="";
-            document.getElementById("respuestas").innerHTML="";
-            if(numAciertos>=3){
-                document.getElementById("texto").innerHTML=`Enhorabuena has completado y pasado con éxito la primera prueba con un total de ${numAciertos} de 5 preguntas`;
-                localStorage.setItem('prueba1','pasada');
-            }else{
-                document.getElementById("texto").innerHTML=`Has completado la prueba pero no la has pasado has acertado ${numAciertos} de 5 preguntas`;
-                localStorage.setItem('prueba1','fallada');
-            }
-            setTimeout(() => {
-                muestraTexto();
-            }, tiempoTexto);
-        }
-    });
-    $("#respuesta3").addEventListener("click",function(){
-        let eleccion = this.value;
-        if(eleccion == respuestaCorrecta[numPregunta]){
-            numAciertos++;
-        }
-        numPregunta++;
-        if(numPregunta<5){
-            muestraPregunta(numPregunta);
-        }else{
-            document.getElementById("pregunta").innerHTML="";
-            document.getElementById("respuestas").innerHTML="";
-            if(numAciertos>=3){
-                document.getElementById("texto").innerHTML=`Enhorabuena has completado y pasado con éxito la primera prueba con un total de ${numAciertos} de 5 preguntas`;
-                localStorage.setItem('prueba1','pasada');
-            }else{
-                document.getElementById("texto").innerHTML=`Has completado la prueba pero no la has pasado has acertado ${numAciertos} de 5 preguntas`;
-                localStorage.setItem('prueba1','fallada');
-            }
-            setTimeout(() => {
-                muestraTexto();
-            }, tiempoTexto);
-        }
-    });
+        });
+    }
+    
 }
