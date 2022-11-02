@@ -2,6 +2,8 @@ body {
     display: inline-grid;
     place-items: center;
     width: 100%;
+    background-color: #000;
+    color: #fff;
 }
 .botones {
     display: inline-grid;

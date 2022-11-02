@@ -19,16 +19,20 @@ let numAciertos = 0;
 const tiempoTexto=5000;
 let i =0;
 let totalPreguntas=cuestionario.length;
-const optionContainer=document.querySelector(".option-container")
+const optionContainer=document.querySelector(".option-container");
+const indicador = document.querySelector(".answer-indicator");
 function muestraPregunta(i){
     let p = cuestionario[i];
     let pregunta = `<p>${p.pregunta}</p>`;
     let r = p.respuestas;
     let index=0;
+    let animacion=0.2;
     for(;index<r.length;index++){
-        const option= document.createElement("div");
+        let option= document.createElement("div");
         option.innerHTML=r[index];
         option.id=`respuesta${index}`;
+        option.style.animationDelay=animacion+'s';
+        animacion=animacion+0.15;
         option.className="option";
         optionContainer.appendChild(option);
     }
@@ -56,7 +60,6 @@ function muestraTexto(){
 function $(selector){
     return document.querySelector(selector);
 }
-muestraPregunta(i);
 function validarRespuesta(){
     let options=[]
     options=document.getElementsByClassName("option");
@@ -69,30 +72,58 @@ function validarRespuesta(){
             let eleccion = this.id;
             if(eleccion == respuestaCorrecta[numPregunta]){
                 numAciertos++;
-            }
-            numPregunta++;
-            if(numPregunta<5){
-                for(;y>=0;y--){
-                    optionContainer.removeChild(options2[y]);
-                }
-                muestraPregunta(numPregunta); 
+                document.getElementById(`${eleccion}`).classList.add("correct");
+                updateIndicador("correct");
             }else{
-                document.querySelector(".question-number").innerHTML="";
-                document.querySelector(".question-text").innerHTML="";
-                document.querySelector(".option-container").innerHTML="";
-                if(numAciertos>=3){
-                    document.getElementById("texto").innerHTML=`Enhorabuena has completado y pasado con éxito la primera prueba con un total de ${numAciertos} de 5 preguntas`;
-                    localStorage.setItem('prueba1','pasada');
-                }else{
-                    document.getElementById("texto").innerHTML=`Has completado la prueba pero no la has pasado has acertado ${numAciertos} de 5 preguntas`;
-                    localStorage.setItem('prueba1','fallada');
-                }
-                setTimeout(() => {
-                    muestraTexto();
-                }, tiempoTexto);
-                
+                document.getElementById(`${eleccion}`).classList.add("wrong");
+                updateIndicador("wrong");
             }
+            respondido();
+            numPregunta++;
+            setTimeout(()=>{
+                if(numPregunta<totalPreguntas){
+                    for(;y>=0;y--){
+                        optionContainer.removeChild(options2[y]);
+                    }
+                    muestraPregunta(numPregunta); 
+                }else{
+                    document.querySelector(".question-number").innerHTML="";
+                    document.querySelector(".question-text").innerHTML="";
+                    document.querySelector(".option-container").innerHTML="";
+                    if(numAciertos>=3){
+                        document.getElementById("texto").innerHTML=`Enhorabuena has completado y pasado con éxito la primera prueba con un total de ${numAciertos} de 5 preguntas`;
+                        localStorage.setItem('prueba1','pasada');
+                    }else{
+                        document.getElementById("texto").innerHTML=`Has completado la prueba pero no la has pasado has acertado ${numAciertos} de 5 preguntas`;
+                        localStorage.setItem('prueba1','fallada');
+                    }
+                    setTimeout(() => {
+                        muestraTexto();
+                    }, tiempoTexto);
+                    
+                }
+            },1000);
+            
         });
     }
     
 }
+function respondido(){
+    let numOption = optionContainer.children.length;
+    let a =0;
+    for(;a<numOption;a++){
+        optionContainer.children[a].classList.add("respondido");
+    }
+}
+function incidacorPregunta(){
+    let b=0;
+    for(;b<cuestionario.length;b++){
+        let indicadorRespuestas=document.createElement("div");
+        indicador.appendChild(indicadorRespuestas);
+    }
+}
+function updateIndicador(resultado){
+    indicador.children[numPregunta].classList.add(resultado);
+}
+muestraPregunta(i);
+incidacorPregunta();

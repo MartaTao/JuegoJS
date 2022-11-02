@@ -30,3 +30,92 @@ body{
     padding: 20px 0;
     margin:0;
 }
+
+.quiz-box .option-container .option{
+    background-color: #cccccc;
+    padding: 15px;
+    font-size: 16px;
+    Line-height: 22px;
+    color:#000000;
+    border-radius : 5px;
+    margin-bottom: 10px;
+    cursor:pointer;
+    opacity:0;
+    animation: fadeIn 0.3s ease forwards;
+    position: relative;
+    overflow: hidden;
+}
+@keyframes fadeIn {
+    0%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+}
+.quiz-box .option-container .option.correct::before{
+    content: "";
+    position: absolute;
+    Left:0;
+    top:0;
+    height: 100%;
+    width: 100%;
+    background-color: darkgreen;
+    z-index: -1;
+    animation: slideLeft 0.5s ease forwards;
+}
+.quiz-box .option-container .option.wrong::before{
+    content: "";
+    position: absolute;
+    Left:0;
+    top:0;
+    height: 100%;
+    width: 100%;
+    background-color: crimson;
+    z-index: -1;
+    animation: slideLeft 0.5s ease forwards;
+}
+@keyframes slideLeft {
+    0%{
+        transform: translateX(-100%);
+    }
+    100%{
+        transform: translateX(0%);
+    }
+    
+}
+.quiz-box .option-container .option.correct{
+    color: #fff;
+}
+.quiz-box .option-container .option.wrong{
+    color: #fff;
+}
+.quiz-box .option-container .option.respondido{
+    pointer-events: none;
+}
+.quiz-box .answer-indicator{
+    border-top: solid 1px #cccccc;
+}
+.quiz-box .answer-indicator div{
+    height: 40px;
+    width: 40px;
+    display: inline-block;
+    border-radius: 50%;
+    margin-right: 5px;
+    background-color: #cccccc;
+    margin-top: 10px;
+}
+.quiz-box .answer-indicator div.correct{
+    background-color: darkgreen;
+    background-image: url("../images/correct.png");
+    background-size: 50%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.quiz-box .answer-indicator div.wrong{
+    background-color: crimson;
+    background-image: url("../images/wrong.png");
+    background-size: 50%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
