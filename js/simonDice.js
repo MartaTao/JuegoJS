@@ -59,7 +59,7 @@ class Simon{
             this.errorSonido.play();
             document.getElementById("texto").innerHTML=`Vaya no has conseguido superar la prueba`;
             localStorage.setItem('prueba2','fallada');
-            if(localStorage.getItem('prueba1')=='fallada'&& localStorage.getItem('prueba2')=='fallada'){
+            if(localStorage.getItem('prueba1')=='fallada'){
                 setTimeout(() => {
                     window.open("gameOver.html");
                     window.close();
@@ -113,7 +113,7 @@ function muestraTexto(){
         }, tiempoTexto);
     }else{
         setTimeout(() => {
-            window.open("definidos.html");
+            window.open("sudoku.html");
             window.close();
         }, tiempoTexto);
     }

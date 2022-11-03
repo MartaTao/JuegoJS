@@ -4,6 +4,7 @@ body {
     width: 100%;
     background-color: #000;
     color: #fff;
+    font-family: "Potta One", cursive;
 }
 .botones {
     display: inline-grid;
