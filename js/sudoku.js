@@ -1,108 +1,109 @@
-const celdas = document.querySelectorAll(".main-grid-cell");
-const tamanyioGrid=9;
-const tamanyoCaja=3;
-const numeros=[1,2,3,4,5,6,7,8,9];
-const celdaSinNum=0;
-//Añade esacio por cada 9 celdas, osea divide las 81 celdas en cuadrado de 3x3
-function gameGrid(){
-    let index =0;
-    let i=0;
-    for(;i<Math.pow(tamanyioGrid,2);i++){
-        let fila=Math.floor(i/tamanyioGrid);
-        let columna=i%tamanyioGrid;
-        if(fila==2 || fila==5){
-            celdas[index].style.marginBottom="10px";
+class Sudoku{
+    constructor(){
+        this.espacioBlanco=0;
+        this.tamanioGrid=9;
+        this.tamanioRecuadro=3;
+        this.celdas = document.querySelectorAll('.main-grid-cell');
+        this.nuemros=[1,2,3,4,5,6,7,8,9];
+        this.nombreNivel=["Facil","Medio","Difícil","Muy difícil","Experto","Infernal"];
+        this.numCeldasVacias=[29,38,47,56,65,74];
+        this.nivel=0;
+        this.casillasAResolver;
+    }
+    setNivel(level){
+        this.nivel=level;
+    }
+    //Crea un Array de 9 espacios, y desspues otro array de 9 en cada espacio creando un array de 9x9
+    nuevoGrid(){
+        let grid=new Array(this.tamanioGrid);
+        let i=0;
+        for(;i<this.tamanioGrid;i++){
+            grid[i]=new Array(this.tamanioGrid);
         }
-        if(columna==2 || columna==5){
-            celdas[index].style.marginRight="10px";
+        i=0;
+        for(;i<Math.pow(this.tamanioGrid,2);i++){
+            grid[Math.floor(i/this.tamanioGrid)][i%this.tamanioGrid]
         }
-        index++;
+        return grid;
     }
-}
-function nuevoGrid(tamanyo){
-    let arr=new Array(tamanyo);
-    let i=0;
-    for(;i<tamanyo;i++){
-        arr[i]=new Array(tamanyo);
-    }
-    for(;i<matchMedia.prototype(tamanyo,2);i++){
-        arr[Math.floor(i/tamanyo)][i%tamanyo]=celdaSinNum;
-    }
-    returnarr;
-}
-function esNumDuplciadoFilaCol(grid,columna,fila, valor){
-    let filas=0;
-    let columnas=0;
-    let esDuplicado=false;
-    while(filas<tamanyioGrid && !esDuplicado){
-        if(grid[filas][columna]==valor){
-            esDuplicado=true;
+    barajaArrays(arr){
+        let index=arr.lenght;
+        let indexRandom;
+        let aux;
+        while(index!=0){
+            
         }
-        filas++;
     }
-    if(!esDuplicado){
-        while(columnas<tamanyioGrid && !esDuplicado){
-            if(grid[fila][columnas]==valor){
-                esDuplicado=true;
+    muestraSudoku(){
+        let i=0;
+        let fila;
+        let columna;
+        for(;i<Math.pow(this.tamanioGrid,2);i++){
+            fila=Math.floor(i/this.tamanioGrid);
+            columna=i%this.tamanioGrid;
+            if (fila == 2 || fila == 5){
+                this.celdas[i].style.marginBottom = '10px';
             }
-            columnas++
-        }
-    }
-    return esDuplicado;
-}
-function esNumDuplicadoCaja(grid,colCaja,filaCaja,valor){
-    let esNumDuplicado=false;
-    let fila=0;
-    let columna=0;
-    while(fila<tamanyoCaja && !esNumDuplicado){
-        while(columna<tamanyoCaja && !esNumDuplicado){
-            if(grid[fila+filaCaja][columna+colCaja]==valor){
-                esNumDuplicado=true;
+            if (columna == 2 || columna == 5){
+                this.celdas[i].style.marginRight = '10px';
             }
-            columna++;
+            this.celdas[i].setAttribute('data-value', this.celdas[fila][columna]);
         }
-        fila++;
-    }
-    return esNumDuplicado;
-}
-function validarNumero(grid, fila,columna,valor){
-    let esCorrecto=false;
-    if(esNumDuplciadoFilaCol(grid,fila,columna,valor)&& esNumDuplicadoCaja(grid,fila-fila%3,columna-columna%3,valor) && valor!=celdaSinNum){
-        esCorrecto=true;
-    }
-    return esCorrecto;
-}
-function encuentraEspacioVacio(grid,pos){
-    let fila=0;
-    let columna=0;
-    let esEspacioVacio=false;
-    for(;fila<tamanyioGrid;fila++){
-        for(;columna<tamanyioGrid;columna++){
-            if(grid[fila][columna]==celdaSinNum){
-                pos.fila=fila;
-                pos.columna=columna;
-                esEspacioVacio=true;
+        let f=0;
+        let c=0;
+        i=0;
+        let tableroSudoku=this.nuevoGrid();
+        for(;c<this.tamanioGrid;c++){
+            for(;f<this.tamanioGrid;f++){
+                tableroSudoku[f][c]=Math.floor(Math.random()*9);
+                this.celdas[i].textContent=tableroSudoku[f][c];
             }
+            
+            
         }
-    }
-    return esEspacioVacio;
-}
-function barajaArray(array){
-    let indActual=array.lenght;
-    while(indActual!=0){
-        let inRandom=Math.floor(Math.random()*indActual);
-        indActual--;
-        let aux=array[indActual];
-        array[indActual]=array[inRandom];
-        array[inRandom]=aux;
-    }
-    return array;
-}
 
-function sudokuAcabado(){
-    if(!encuentraEspacioVacio){
-        document.getElementById("texto").innerHTML="Prueba completada";
+        /*if(this.celda[fila][columna] != 0){
+            this.celdas[i].textContent = this.celda[fila][columna];
+            this.celdas[i].classList.add('filled');
+        }*/
     }
-    
+    clearSudoku(){
+        let i=0;
+        for(;i<Math.pow(this.tamanioGrid, 2); i++){
+            this.celdas[i].textContent = '';
+            this.celdas[i].classList.remove('filled');
+            this.celdas[i].classList.remove('selected');
+        }
+    }
+    iniciaSudoku(){
+        this.clearSudoku();
+        this.muestraSudoku();
+    }
 }
-gameGrid();
+function $(selector){
+    return document.querySelector(selector);
+}
+const menuInicio = document.getElementById('start-screen');
+const juego = document.getElementById('game-screen');
+const celdas = document.querySelectorAll('.main-grid-cell');
+const numerosIndice = document.querySelectorAll('.number');
+const nivel=document.getElementById('btn-level');
+const sudoku=new Sudoku();
+let nivelDificultad=0;
+$('#btn-level').addEventListener('click',()=>{
+    if(nivelDificultad+1<6){
+        nivelDificultad++;
+    }else{
+        nivelDificultad=0;
+    }
+    nivel.textContent=sudoku.nombreNivel[nivelDificultad];
+
+});
+$('#btn-play').addEventListener('click', () => {
+    startGame();   
+});
+function startGame(){
+    menuInicio.classList.remove('active');
+    juego.classList.add('active');
+    sudoku.iniciaSudoku();
+}
