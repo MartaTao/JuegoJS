@@ -1,109 +1,392 @@
-class Sudoku{
-    constructor(){
-        this.espacioBlanco=0;
-        this.tamanioGrid=9;
-        this.tamanioRecuadro=3;
-        this.celdas = document.querySelectorAll('.main-grid-cell');
-        this.nuemros=[1,2,3,4,5,6,7,8,9];
-        this.nombreNivel=["Facil","Medio","Difícil","Muy difícil","Experto","Infernal"];
-        this.numCeldasVacias=[29,38,47,56,65,74];
-        this.nivel=0;
-        this.casillasAResolver;
-    }
-    setNivel(level){
-        this.nivel=level;
-    }
-    //Crea un Array de 9 espacios, y desspues otro array de 9 en cada espacio creando un array de 9x9
-    nuevoGrid(){
-        let grid=new Array(this.tamanioGrid);
-        let i=0;
-        for(;i<this.tamanioGrid;i++){
-            grid[i]=new Array(this.tamanioGrid);
-        }
-        i=0;
-        for(;i<Math.pow(this.tamanioGrid,2);i++){
-            grid[Math.floor(i/this.tamanioGrid)][i%this.tamanioGrid]
-        }
-        return grid;
-    }
-    barajaArrays(arr){
-        let index=arr.lenght;
-        let indexRandom;
-        let aux;
-        while(index!=0){
-            
-        }
-    }
-    muestraSudoku(){
-        let i=0;
-        let fila;
-        let columna;
-        for(;i<Math.pow(this.tamanioGrid,2);i++){
-            fila=Math.floor(i/this.tamanioGrid);
-            columna=i%this.tamanioGrid;
-            if (fila == 2 || fila == 5){
-                this.celdas[i].style.marginBottom = '10px';
-            }
-            if (columna == 2 || columna == 5){
-                this.celdas[i].style.marginRight = '10px';
-            }
-            this.celdas[i].setAttribute('data-value', this.celdas[fila][columna]);
-        }
-        let f=0;
-        let c=0;
-        i=0;
-        let tableroSudoku=this.nuevoGrid();
-        for(;c<this.tamanioGrid;c++){
-            for(;f<this.tamanioGrid;f++){
-                tableroSudoku[f][c]=Math.floor(Math.random()*9);
-                this.celdas[i].textContent=tableroSudoku[f][c];
-            }
-            
-            
-        }
+const espacioNoAsignado= 0;
+const tamanioGrid= 9;
+const tamanioRecuadro= 3;
+const numeros= [1,2,3,4,5,6,7,8,9];
+const nombreNivel= ["Facil","Medio","Difícil","Muy difícil","Experto","Infernal"];
+const nivel= [29, 38, 47, 56, 65, 74];
 
-        /*if(this.celda[fila][columna] != 0){
-            this.celdas[i].textContent = this.celda[fila][columna];
-            this.celdas[i].classList.add('filled');
-        }*/
-    }
-    clearSudoku(){
-        let i=0;
-        for(;i<Math.pow(this.tamanioGrid, 2); i++){
-            this.celdas[i].textContent = '';
-            this.celdas[i].classList.remove('filled');
-            this.celdas[i].classList.remove('selected');
-        }
-    }
-    iniciaSudoku(){
-        this.clearSudoku();
-        this.muestraSudoku();
-    }
-}
 function $(selector){
     return document.querySelector(selector);
 }
-const menuInicio = document.getElementById('start-screen');
-const juego = document.getElementById('game-screen');
-const celdas = document.querySelectorAll('.main-grid-cell');
-const numerosIndice = document.querySelectorAll('.number');
-const nivel=document.getElementById('btn-level');
-const sudoku=new Sudoku();
-let nivelDificultad=0;
-$('#btn-level').addEventListener('click',()=>{
-    if(nivelDificultad+1<6){
-        nivelDificultad++;
-    }else{
-        nivelDificultad=0;
-    }
-    nivel.textContent=sudoku.nombreNivel[nivelDificultad];
 
-});
-$('#btn-play').addEventListener('click', () => {
-    startGame();   
-});
-function startGame(){
-    menuInicio.classList.remove('active');
-    juego.classList.add('active');
-    sudoku.iniciaSudoku();
+const newGrid = () => {
+    let arr = new Array(tamanioGrid);
+
+    for (let i = 0; i < tamanioGrid; i++) {
+        arr[i] = new Array(tamanioGrid);  
+    }
+
+    for (let i = 0; i < Math.pow(tamanioGrid, 2); i++) {
+        arr[Math.floor(i/tamanioGrid)][i%tamanioGrid] = espacioNoAsignado;
+    }
+
+    return arr;
 }
+
+//Comprobamos si el nuemro no esta duplicado:
+const noDuplicado = (grid, fila, col, value) => {
+    return noDuplicadoCol(grid, col, value) && noDuplicadoFila(grid, fila, value) && noDuplicadoReacuadro(grid, fila - fila%3, col - col%3, value) && value !== espacioNoAsignado;
+}
+//En la columna
+const noDuplicadoCol = (grid, col, value) => {
+    for (let fila = 0; fila < tamanioGrid; fila++) {
+        if (grid[fila][col] == value) return false;
+    }
+    return true;
+}
+//En la fila
+const noDuplicadoFila = (grid, fila, value) => {
+    for (let col = 0; col < tamanioGrid; col++) {
+        if (grid[fila][col] == value) return false;
+    }
+    return true;
+}
+//En el 3x3
+const noDuplicadoReacuadro = (grid, cajaFila, cajaCol, value) => {
+    for (let fila = 0; fila < tamanioRecuadro; fila++) {
+        for (let col = 0; col < tamanioRecuadro; col++) {
+            if (grid[fila + cajaFila][col + cajaCol] == value) return false;
+        }
+    }
+    return true;
+}
+
+const encuentraEspacioVacio = (grid, pos) => {
+    for (let fila = 0; fila < tamanioGrid; fila++) {
+        for (let col = 0; col < tamanioGrid; col++) {
+            if (grid[fila][col] == espacioNoAsignado) {
+                pos.fila = fila;
+                pos.col = col;
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+const shuffleArray = (array) => {
+    let index = array.length;
+    let aux;
+    while (index !== 0) {
+        let indexRandom = Math.floor(Math.random()*index);
+        index -= 1;
+        aux= array[indexRandom];
+        array[index] = array[indexRandom];
+        array[indexRandom] = aux;
+    }
+
+    return array;
+}
+
+//Comprueba si el gridd esta completo
+const isFullGrid = (grid) => {
+    return grid.every((fila, i) => {
+        return fila.every((value, j) => {
+            return value !== espacioNoAsignado;
+        });
+    });
+}
+//Asiga al grid los 81 números
+const sudokuCreate = (grid) => {
+    let espacioNoAsignado_pos = {
+        fila: -1,
+        col: -1
+    }
+
+    if (!encuentraEspacioVacio(grid, espacioNoAsignado_pos)) return true;
+
+    let number_list = shuffleArray([...numeros]);
+
+    let fila = espacioNoAsignado_pos.fila;
+    let col = espacioNoAsignado_pos.col;
+
+    number_list.forEach((num, i) => {
+        if (noDuplicado(grid, fila, col, num)) {
+            grid[fila][col] = num;
+
+            if (isFullGrid(grid)) {
+                return true;
+            } else {
+                if (sudokuCreate(grid)) {
+                    return true;
+                }
+            }
+
+            grid[fila][col] = espacioNoAsignado;
+        }
+    });
+
+    return isFullGrid(grid);
+}
+//Chekea que el sudoku esta bien completado
+const sudokuCheck = (grid) => {
+    let espacioNoAsignado_pos = {
+        fila: -1,
+        col: -1
+    }
+    if (!encuentraEspacioVacio(grid, espacioNoAsignado_pos)) return true;
+    grid.forEach((fila, i) => {
+        fila.forEach((num, j) => {
+            if (noDuplicado(grid, i, j, num)) {
+                if (isFullGrid(grid)) {
+                    return true;
+                } else {
+                    if (sudokuCreate(grid)) {
+                        return true;
+                    }
+                }
+            }
+        })
+    })
+
+    return isFullGrid(grid);
+}
+//Limpia las celdas de manera aleatoria segun el numero de celdas que tengas que averiguar
+const removeCells = (grid, level) => {
+    let res = [...grid];
+    let attemps = level;
+    while (attemps > 0) {
+        let fila = Math.floor(Math.random() * tamanioGrid);
+        let col = Math.floor(Math.random() * tamanioGrid);
+        while (res[fila][col] == 0) {
+            fila = Math.floor(Math.random() * tamanioGrid);
+            col = Math.floor(Math.random() * tamanioGrid);
+        }
+        res[fila][col] = espacioNoAsignado;
+        attemps--;
+    }
+    return res;
+}
+//Genera el sudoku con los espacios segun el nivel
+const sudokuGen = (level) => {
+    let sudoku = newGrid();
+    let check = sudokuCreate(sudoku);
+    if (check) {
+        let question = removeCells(sudoku, level);
+        return {
+            original: sudoku,
+            question: question
+        }
+    }
+    return undefined;
+}
+const start_screen = document.getElementById('start-screen');
+const game_screen = document.getElementById('game-screen');
+const cells = document.querySelectorAll('.main-grid-cell');
+const number_inputs = document.querySelectorAll('.number');
+const level_btn= document.getElementById('btn-level');
+let level_index = 0;
+let level = nivel[level_index];
+let su = undefined;
+let su_answer = undefined;
+let celdaSelecionada = -1;
+//Crea el cuadrado de 9x9 en cuadrados de 3x3
+const initGameGrid = () => {
+    let index = 0;
+
+    for (let i = 0; i < Math.pow(tamanioGrid,2); i++) {
+        let fila = Math.floor(i/tamanioGrid);
+        let col = i % tamanioGrid;
+        if (fila == 2 || fila == 5) cells[index].style.marginBottom = '10px';
+        if (col == 2 || col == 5) cells[index].style.marginRight = '10px';
+
+        index++;
+    }
+}
+const clearSudoku = () => {
+    for (let i = 0; i < Math.pow(tamanioGrid, 2); i++) {
+        cells[i].textContent = '';
+        cells[i].classList.remove('filled');
+        cells[i].classList.remove('selected');
+    }
+}
+//Crea el sudoku en si
+const initSudoku = () => {
+    clearSudoku();
+    resetBg();
+    su = sudokuGen(level);
+    su_answer = [...su.question];
+    for (let i = 0; i < Math.pow(tamanioGrid, 2); i++) {
+        let fila = Math.floor(i / tamanioGrid);
+        let col = i % tamanioGrid;
+        
+        cells[i].setAttribute('data-value', su.question[fila][col]);
+
+        if (su.question[fila][col] !== 0) {
+            cells[i].classList.add('filled');
+            cells[i].textContent = su.question[fila][col];
+        }
+    }
+}
+//Marca la fila, columna y recuadro de la casilla selecionada
+const hoverBg = (index) => {
+    let fila = Math.floor(index / tamanioGrid);
+    let col = index % tamanioGrid;
+
+    let box_start_row = fila - fila % 3;
+    let box_start_col = col - col % 3;
+
+    for (let i = 0; i < tamanioRecuadro; i++) {
+        for (let j = 0; j < tamanioRecuadro; j++) {
+            let cell = cells[9 * (box_start_row + i) + (box_start_col + j)];
+            cell.classList.add('hover');
+        }
+    }
+    //selecciona la columna dodne está el número
+    let step = 9;
+    while (index - step >= 0) {
+        cells[index - step].classList.add('hover');
+        step += 9;
+    }
+
+    step = 9;
+    while (index + step < 81) {
+        cells[index + step].classList.add('hover');
+        step += 9;
+    }
+    //selecciona la fila dodne está el nuemro
+    step = 1;
+    while (index - step >= 9*fila) {
+        cells[index - step].classList.add('hover');
+        step += 1;
+    }
+
+    step = 1;
+     while (index + step < 9*fila + 9) {
+        cells[index + step].classList.add('hover');
+        step += 1;
+    }
+
+}
+
+const resetBg = () => {
+    cells.forEach(e => e.classList.remove('hover'));
+}
+//Busca si hay errores
+const checkErr = (value) => {
+    const addErr = (cell) => {
+        if (parseInt(cell.getAttribute('data-value')) == value) {//Com prueba si el valor del atributo es igual al número(value)
+            cell.classList.add('err');
+            cell.classList.add('cell-err');
+            setTimeout(() => {
+                cell.classList.remove('cell-err');
+            }, 500);
+        }
+    }
+    let index = celdaSelecionada;
+    let fila = Math.floor(index / tamanioGrid);
+    let col = index % tamanioGrid;
+    let box_start_row = fila - fila % 3;
+    let box_start_col = col - col % 3;
+    //Revisa la caja
+    for (let i = 0; i < tamanioRecuadro; i++) {
+        for (let j = 0; j < tamanioRecuadro; j++) {
+            let cell = cells[9 * (box_start_row + i) + (box_start_col + j)];
+            if (!cell.classList.contains('selected')) addErr(cell);//Solo se puede poner en rojo las casillas que no tenemos seleccionadas
+        }
+    }
+    //Revisa columna donde se encuentra el número
+    let step = 9;
+    while (index - step >= 0) {
+        addErr(cells[index - step]);
+        step += 9;
+    }
+    step = 9;
+    while (index + step < 81) {
+        addErr(cells[index + step]);
+        step += 9;
+    }
+    //Revisa la fila dodne está el número
+    step = 1;
+    while (index - step >= 9*fila) {
+        addErr(cells[index - step]);
+        step += 1;
+    }
+    step = 1;
+    while (index + step < 9*fila + 9) {
+        addErr(cells[index + step]);
+        step += 1;
+    }
+}
+
+const removeErr = () => cells.forEach(e => e.classList.remove('err'));
+
+const isGameWin = () => sudokuCheck(su_answer);
+
+const initNumberInputEvent = () => {
+    number_inputs.forEach((e, index) => {
+        e.addEventListener('click', () => {
+            if (!cells[celdaSelecionada].classList.contains('filled')) {
+                cells[celdaSelecionada].textContent = index + 1;
+                cells[celdaSelecionada].setAttribute('data-value', index + 1);
+                // Añade a nuestro grid de respuesta el numero introducido
+                let fila = Math.floor(celdaSelecionada / tamanioGrid);
+                let col = celdaSelecionada % tamanioGrid;
+                su_answer[fila][col] = index + 1;
+                removeErr();
+                //Checkea que que el numero introducido es correcto
+                checkErr(index + 1);
+                
+
+                if (isGameWin()) {
+                    
+                }
+            }
+        })
+    })
+}
+
+const initCellsEvent = () => {
+    cells.forEach((e, index) => {
+        e.addEventListener('click', () => {
+            if (!e.classList.contains('filled')) {
+                cells.forEach(e => e.classList.remove('selected'));
+
+                celdaSelecionada = index;
+                e.classList.remove('err');
+                e.classList.add('selected');
+                resetBg();
+                hoverBg(index);
+            }
+        })
+    })
+}
+
+const startGame = () => {
+    start_screen.classList.remove('active');
+    game_screen.classList.add('active');
+}
+
+$('#btn-level').addEventListener('click', (e) => {
+    if(level_index+1<6){
+        level_index++;
+    }else{
+        level_index=0;
+    }
+    level_btn.textContent=nombreNivel[level_index];
+    level = nivel[level_index]
+});
+
+$('#btn-play').addEventListener('click', () => {
+    initSudoku();
+    startGame();
+    
+});
+
+$('#btn-delete').addEventListener('click', () => {
+    cells[celdaSelecionada].textContent = '';
+    cells[celdaSelecionada].setAttribute('data-value', 0);
+
+    let fila = Math.floor(celdaSelecionada / tamanioGrid);
+    let col = celdaSelecionada % tamanioGrid;
+
+    su_answer[fila][col] = 0;
+
+    removeErr();
+})
+const init = () => {
+    initGameGrid();
+    initCellsEvent();
+    initNumberInputEvent();
+}
+init();

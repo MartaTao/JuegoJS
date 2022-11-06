@@ -7,10 +7,13 @@
 
 body {
     font-family: "Potta One", cursive;
-    background-color: #1a1a2e;
+    background-image: url(../images/cielo.jpg);
+    background-size: 180%;
+    background-repeat: no-repeat;
     overflow-x: hidden;
     user-select: none;
     text-align: center;
+    color:#fff
 }
 
 input {
@@ -18,21 +21,6 @@ input {
     border: 2px solid #2a2a38;
     color: #6a6a6a;
 }
-
-input:hover,
-input:focus {
-    border-color: #00aeef;
-}
-
-a {
-    text-decoration: none;
-    color: unset;
-}
-
-ul {
-    list-style-type: none;
-}
-
 
 .main {
     display: grid;
@@ -84,7 +72,7 @@ ul {
 }
 
 .btn-blue {
-    background-color: #00aeef;
+    background-color: plum;
     color: #fff;
 }
 
@@ -131,8 +119,8 @@ ul {
 .main-grid-cell {
     height: 50px;
     width: 50px;
-    border-radius: 10px;
-    background-color: #2a2a38;
+    border:solid 3px lightskyblue;
+    border-radius: 10px ;
     color: #00aeef;
     display: grid;
     place-items: center;
@@ -141,21 +129,20 @@ ul {
 }
 
 .main-grid-cell.filled {
-    background-color: #000;
-    color: #4f4f63;
+    color: #fff;
 }
 
 .main-grid-cell.selected {
-    background-color: #00aeef;
+    background-color:#6e6e8f;
     color: #fff;
 }
 
 .main-grid-cell:hover {
-    border: 2px solid #00aeef;
+    border: 2px solid#8f8fbb;
 }
 
 .main-grid-cell.hover {
-    border: 3px solid #00aeef;
+    border: 2px solid#8f8fbb;
 }
 
 .main-grid-cell.err {
@@ -173,9 +160,9 @@ ul {
 
 .number {
     height: 50px;
-    border-radius: 10px;
-    background-color: #2a2a38;
-    color: #6a6a6a;
+    border:solid 3px lightsteelblue;
+    border-radius: 10px ;
+    color:#fff;
     display: grid;
     place-items: center;
     font-size: 1.5rem;
@@ -199,4 +186,18 @@ ul {
     100% {
         transform: scale(1);
     }
+}
+.delete {
+    background-color: #e91e63;
+    color: #fff;
+    height:50px;
+    border-radius: 10px;
+    display: grid;
+    place-items: center;
+    font-size:1.5rem;
+    cursor: pointer;
+}
+#btn-level{
+    background-color: peachpuff;
+    color:#fff;
 }
