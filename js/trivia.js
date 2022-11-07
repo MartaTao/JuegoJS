@@ -87,15 +87,15 @@ function validarRespuesta(){
                     }
                     muestraPregunta(numPregunta); 
                 }else{
-                    document.querySelector(".question-number").innerHTML="";
+                    document.querySelector(".question-number").innerHTML="Completado!♥";
                     document.querySelector(".question-text").innerHTML="";
                     document.querySelector(".option-container").innerHTML="";
                     if(numAciertos>=3){
                         document.getElementById("texto").innerHTML=`Enhorabuena has completado y pasado con éxito la primera prueba con un total de ${numAciertos} de 5 preguntas`;
-                        localStorage.setItem('prueba1','pasada');
+                        localStorage.setItem('pruebaPasadas','1');
                     }else{
                         document.getElementById("texto").innerHTML=`Has completado la prueba pero no la has pasado has acertado ${numAciertos} de 5 preguntas`;
-                        localStorage.setItem('prueba1','fallada');
+                        localStorage.setItem('pruebaPasadas','0');
                     }
                     setTimeout(() => {
                         muestraTexto();

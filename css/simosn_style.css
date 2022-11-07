@@ -2,7 +2,7 @@ body {
     display: inline-grid;
     place-items: center;
     width: 100%;
-    background-color: #000;
+    background-image: url(../images/cieloNubes.jpg);
     color: #fff;
     font-family: "Potta One", cursive;
 }

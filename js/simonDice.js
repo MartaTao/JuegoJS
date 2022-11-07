@@ -58,8 +58,8 @@ class Simon{
         }else{
             this.errorSonido.play();
             document.getElementById("texto").innerHTML=`Vaya no has conseguido superar la prueba`;
-            localStorage.setItem('prueba2','fallada');
-            if(localStorage.getItem('prueba1')=='fallada'){
+            localStorage.setItem('pruebaPasadas','2');
+            if(localStorage.getItem('pruebaPasadas')==0){
                 setTimeout(() => {
                     window.open("gameOver.html");
                     window.close();

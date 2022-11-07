@@ -4,9 +4,46 @@ const tamanioRecuadro= 3;
 const numeros= [1,2,3,4,5,6,7,8,9];
 const nombreNivel= ["Facil","Medio","Difícil","Muy difícil","Experto","Infernal"];
 const nivel= [29, 38, 47, 56, 65, 74];
+const startScreen = document.getElementById('start-screen');
+const juego = document.getElementById('game-screen');
+const celdas = document.querySelectorAll('.main-grid-cell');
+const number_inputs = document.querySelectorAll('.number');
+const level_btn= document.getElementById('btn-level');
+let level_index = 0;
+let level = nivel[level_index];
+let su = undefined;
+let su_answer = undefined;
+let celdaSelecionada = -1;
+let lineaHistoria = 0;
+const tiempoTexto=5000;
+let historia = ["Has realizado completado als tres pruebas!","Pero.... habrás superado las suficientes?","Veamos el resultado!"];
+
 
 function $(selector){
     return document.querySelector(selector);
+}
+function muestraTexto(){
+    let texto = historia[lineaHistoria];
+    document.getElementById("texto").innerHTML = texto;
+    lineaHistoria++;
+    if(lineaHistoria<historia.length){
+        setTimeout(() => {
+            muestraTexto();
+        }, tiempoTexto);
+    }else{
+        setTimeout(() => {
+            if(localStorage.getItem('pruebaPasadas')==3){
+                window.open("ganadoCompelto.html");
+                window.close()
+            }else if(localStorage.getItem('pruebaPasadas')==2){
+                window.open("ganadoParcial.html");
+                window.close()
+            }else{
+                window.open("gameOver.html");
+                window.close()
+            }
+        }, tiempoTexto);
+    }
 }
 
 const newGrid = () => {
@@ -142,7 +179,7 @@ const sudokuCheck = (grid) => {
     return isFullGrid(grid);
 }
 //Limpia las celdas de manera aleatoria segun el numero de celdas que tengas que averiguar
-const removeCells = (grid, level) => {
+const removeceldas = (grid, level) => {
     let res = [...grid];
     let attemps = level;
     while (attemps > 0) {
@@ -162,7 +199,7 @@ const sudokuGen = (level) => {
     let sudoku = newGrid();
     let check = sudokuCreate(sudoku);
     if (check) {
-        let question = removeCells(sudoku, level);
+        let question = removeceldas(sudoku, level);
         return {
             original: sudoku,
             question: question
@@ -170,16 +207,9 @@ const sudokuGen = (level) => {
     }
     return undefined;
 }
-const start_screen = document.getElementById('start-screen');
-const game_screen = document.getElementById('game-screen');
-const cells = document.querySelectorAll('.main-grid-cell');
-const number_inputs = document.querySelectorAll('.number');
-const level_btn= document.getElementById('btn-level');
-let level_index = 0;
-let level = nivel[level_index];
-let su = undefined;
-let su_answer = undefined;
-let celdaSelecionada = -1;
+
+
+
 //Crea el cuadrado de 9x9 en cuadrados de 3x3
 const initGameGrid = () => {
     let index = 0;
@@ -187,17 +217,17 @@ const initGameGrid = () => {
     for (let i = 0; i < Math.pow(tamanioGrid,2); i++) {
         let fila = Math.floor(i/tamanioGrid);
         let col = i % tamanioGrid;
-        if (fila == 2 || fila == 5) cells[index].style.marginBottom = '10px';
-        if (col == 2 || col == 5) cells[index].style.marginRight = '10px';
+        if (fila == 2 || fila == 5) celdas[index].style.marginBottom = '10px';
+        if (col == 2 || col == 5) celdas[index].style.marginRight = '10px';
 
         index++;
     }
 }
 const clearSudoku = () => {
     for (let i = 0; i < Math.pow(tamanioGrid, 2); i++) {
-        cells[i].textContent = '';
-        cells[i].classList.remove('filled');
-        cells[i].classList.remove('selected');
+        celdas[i].textContent = '';
+        celdas[i].classList.remove('filled');
+        celdas[i].classList.remove('selected');
     }
 }
 //Crea el sudoku en si
@@ -210,11 +240,11 @@ const initSudoku = () => {
         let fila = Math.floor(i / tamanioGrid);
         let col = i % tamanioGrid;
         
-        cells[i].setAttribute('data-value', su.question[fila][col]);
+        celdas[i].setAttribute('data-value', su.question[fila][col]);
 
         if (su.question[fila][col] !== 0) {
-            cells[i].classList.add('filled');
-            cells[i].textContent = su.question[fila][col];
+            celdas[i].classList.add('filled');
+            celdas[i].textContent = su.question[fila][col];
         }
     }
 }
@@ -228,39 +258,39 @@ const hoverBg = (index) => {
 
     for (let i = 0; i < tamanioRecuadro; i++) {
         for (let j = 0; j < tamanioRecuadro; j++) {
-            let cell = cells[9 * (box_start_row + i) + (box_start_col + j)];
+            let cell = celdas[9 * (box_start_row + i) + (box_start_col + j)];
             cell.classList.add('hover');
         }
     }
     //selecciona la columna dodne está el número
     let step = 9;
     while (index - step >= 0) {
-        cells[index - step].classList.add('hover');
+        celdas[index - step].classList.add('hover');
         step += 9;
     }
 
     step = 9;
     while (index + step < 81) {
-        cells[index + step].classList.add('hover');
+        celdas[index + step].classList.add('hover');
         step += 9;
     }
     //selecciona la fila dodne está el nuemro
     step = 1;
     while (index - step >= 9*fila) {
-        cells[index - step].classList.add('hover');
+        celdas[index - step].classList.add('hover');
         step += 1;
     }
 
     step = 1;
      while (index + step < 9*fila + 9) {
-        cells[index + step].classList.add('hover');
+        celdas[index + step].classList.add('hover');
         step += 1;
     }
 
 }
 
 const resetBg = () => {
-    cells.forEach(e => e.classList.remove('hover'));
+    celdas.forEach(e => e.classList.remove('hover'));
 }
 //Busca si hay errores
 const checkErr = (value) => {
@@ -281,44 +311,44 @@ const checkErr = (value) => {
     //Revisa la caja
     for (let i = 0; i < tamanioRecuadro; i++) {
         for (let j = 0; j < tamanioRecuadro; j++) {
-            let cell = cells[9 * (box_start_row + i) + (box_start_col + j)];
+            let cell = celdas[9 * (box_start_row + i) + (box_start_col + j)];
             if (!cell.classList.contains('selected')) addErr(cell);//Solo se puede poner en rojo las casillas que no tenemos seleccionadas
         }
     }
     //Revisa columna donde se encuentra el número
     let step = 9;
     while (index - step >= 0) {
-        addErr(cells[index - step]);
+        addErr(celdas[index - step]);
         step += 9;
     }
     step = 9;
     while (index + step < 81) {
-        addErr(cells[index + step]);
+        addErr(celdas[index + step]);
         step += 9;
     }
     //Revisa la fila dodne está el número
     step = 1;
     while (index - step >= 9*fila) {
-        addErr(cells[index - step]);
+        addErr(celdas[index - step]);
         step += 1;
     }
     step = 1;
     while (index + step < 9*fila + 9) {
-        addErr(cells[index + step]);
+        addErr(celdas[index + step]);
         step += 1;
     }
 }
 
-const removeErr = () => cells.forEach(e => e.classList.remove('err'));
+const removeErr = () => celdas.forEach(e => e.classList.remove('err'));
 
-const isGameWin = () => sudokuCheck(su_answer);
+const esGanado = () => sudokuCheck(su_answer);
 
 const initNumberInputEvent = () => {
     number_inputs.forEach((e, index) => {
         e.addEventListener('click', () => {
-            if (!cells[celdaSelecionada].classList.contains('filled')) {
-                cells[celdaSelecionada].textContent = index + 1;
-                cells[celdaSelecionada].setAttribute('data-value', index + 1);
+            if (!celdas[celdaSelecionada].classList.contains('filled')) {
+                celdas[celdaSelecionada].textContent = index + 1;
+                celdas[celdaSelecionada].setAttribute('data-value', index + 1);
                 // Añade a nuestro grid de respuesta el numero introducido
                 let fila = Math.floor(celdaSelecionada / tamanioGrid);
                 let col = celdaSelecionada % tamanioGrid;
@@ -326,21 +356,20 @@ const initNumberInputEvent = () => {
                 removeErr();
                 //Checkea que que el numero introducido es correcto
                 checkErr(index + 1);
-                
-
-                if (isGameWin()) {
-                    
+                if (esGanado()) {
+                    localStorage.setItem('pruebaPasadas','3')
+                    muestraTexto();
                 }
             }
         })
     })
 }
 
-const initCellsEvent = () => {
-    cells.forEach((e, index) => {
+const initceldasEvent = () => {
+    celdas.forEach((e, index) => {
         e.addEventListener('click', () => {
             if (!e.classList.contains('filled')) {
-                cells.forEach(e => e.classList.remove('selected'));
+                celdas.forEach(e => e.classList.remove('selected'));
 
                 celdaSelecionada = index;
                 e.classList.remove('err');
@@ -353,8 +382,8 @@ const initCellsEvent = () => {
 }
 
 const startGame = () => {
-    start_screen.classList.remove('active');
-    game_screen.classList.add('active');
+    startScreen.classList.remove('active');
+    juego.classList.add('active');
 }
 
 $('#btn-level').addEventListener('click', (e) => {
@@ -374,8 +403,8 @@ $('#btn-play').addEventListener('click', () => {
 });
 
 $('#btn-delete').addEventListener('click', () => {
-    cells[celdaSelecionada].textContent = '';
-    cells[celdaSelecionada].setAttribute('data-value', 0);
+    celdas[celdaSelecionada].textContent = '';
+    celdas[celdaSelecionada].setAttribute('data-value', 0);
 
     let fila = Math.floor(celdaSelecionada / tamanioGrid);
     let col = celdaSelecionada % tamanioGrid;
@@ -386,7 +415,7 @@ $('#btn-delete').addEventListener('click', () => {
 })
 const init = () => {
     initGameGrid();
-    initCellsEvent();
+    initceldasEvent();
     initNumberInputEvent();
 }
 init();

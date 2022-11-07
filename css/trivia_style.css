@@ -1,7 +1,10 @@
 body{
+    font-family: "Potta One", cursive;
     margin:0;
     font-size:16px;
-    background-color: #000;
+    background-image: url(../images/meditacion.jpg);
+    background-repeat: no-repeat;
+    background-size: 180%;
 }
 *{
     box-sizing: border-box;
@@ -11,19 +14,20 @@ body{
 }
 .custom-box{
     max-width:700px;
-    background-color:#ffffff;
+    background-color:plum;
     margin:40px auto;
     padding:30px;
-    border-radius:10px;
+    border-radius:50px;
+    border: solid 3px darkorchid; 
 }
-.quiz-box .question-number{
+.question-number{
     font-size: 18px;
     font-weight: 600;
-    border-bottom : 1px solid #cccccc;
+    border-bottom : 1px solid #000;
     padding-bottom: 10px;
     line-height: 25px
 }
-.quiz-box .question-text{
+.question-text{
     font-size: 22px;
     Line-height: 28px;
     font-weight: 400;
@@ -31,8 +35,9 @@ body{
     margin:0;
 }
 
-.quiz-box .option-container .option{
-    background-color: #cccccc;
+.option{
+    background-color: lightblue;
+    border: solid 2px deepskyblue; 
     padding: 15px;
     font-size: 16px;
     Line-height: 22px;
@@ -53,25 +58,25 @@ body{
         opacity: 1;
     }
 }
-.quiz-box .option-container .option.correct::before{
+.option.correct::before{
     content: "";
     position: absolute;
     Left:0;
     top:0;
     height: 100%;
     width: 100%;
-    background-color: darkgreen;
+    background-color: lightgreen;
     z-index: -1;
-    animation: slideLeft 0.5s ease forwards;
+    animation: slideLeft 0.5s;
 }
-.quiz-box .option-container .option.wrong::before{
+.option.wrong::before{
     content: "";
     position: absolute;
     Left:0;
     top:0;
     height: 100%;
     width: 100%;
-    background-color: crimson;
+    background-color: lightcoral;
     z-index: -1;
     animation: slideLeft 0.5s ease forwards;
 }
@@ -84,38 +89,36 @@ body{
     }
     
 }
-.quiz-box .option-container .option.correct{
-    color: #fff;
-}
-.quiz-box .option-container .option.wrong{
-    color: #fff;
-}
-.quiz-box .option-container .option.respondido{
+
+.option.respondido{
     pointer-events: none;
 }
-.quiz-box .answer-indicator{
-    border-top: solid 1px #cccccc;
+.answer-indicator{
+    border-top: solid 1px #000;
 }
-.quiz-box .answer-indicator div{
+.answer-indicator div{
     height: 40px;
     width: 40px;
     display: inline-block;
     border-radius: 50%;
     margin-right: 5px;
-    background-color: #cccccc;
+    background-color: lightblue;
+    border: solid 2px deepskyblue; 
     margin-top: 10px;
 }
-.quiz-box .answer-indicator div.correct{
-    background-color: darkgreen;
+.answer-indicator div.correct{
+    background-color: lightgreen;
     background-image: url("../images/correct.png");
     background-size: 50%;
     background-repeat: no-repeat;
     background-position: center;
+    border: solid 2px darkgreen; 
 }
-.quiz-box .answer-indicator div.wrong{
-    background-color: crimson;
+.answer-indicator div.wrong{
+    background-color: lightcoral;
     background-image: url("../images/wrong.png");
     background-size: 50%;
     background-repeat: no-repeat;
     background-position: center;
+    border: solid 2px darkred; 
 }
