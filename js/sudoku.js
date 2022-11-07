@@ -16,7 +16,7 @@ let su_answer = undefined;
 let celdaSelecionada = -1;
 let lineaHistoria = 0;
 const tiempoTexto=5000;
-let historia = ["Has realizado completado als tres pruebas!","Pero.... habrás superado las suficientes?","Veamos el resultado!"];
+let historia = ["¡Enhorabuena! Has completado las tres preubas que te preparado.","Pero, ¿habrás supero las suficientes para deshacerte de mi virus?","¡Dejemonos de intrigas! Veamos los resutados"];
 
 
 function $(selector){
@@ -33,13 +33,13 @@ function muestraTexto(){
     }else{
         setTimeout(() => {
             if(localStorage.getItem('pruebaPasadas')==3){
-                window.open("ganadoCompelto.html");
+                window.open("../html/ganadoCompleto.html");
                 window.close()
             }else if(localStorage.getItem('pruebaPasadas')==2){
-                window.open("ganadoParcial.html");
+                window.open("../html/ganadoParcial.html");
                 window.close()
             }else{
-                window.open("gameOver.html");
+                window.open("../html/gameOver.html");
                 window.close()
             }
         }, tiempoTexto);

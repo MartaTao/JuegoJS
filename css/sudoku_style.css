@@ -8,7 +8,7 @@
 body {
     font-family: "Potta One", cursive;
     background-image: url(../images/cielo.jpg);
-    background-size: 180%;
+    background-size: 100%;
     background-repeat: no-repeat;
     overflow-x: hidden;
     user-select: none;

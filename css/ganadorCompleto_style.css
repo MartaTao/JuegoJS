@@ -1,0 +1,19 @@
+body{
+    background-image: url(../images/inuysha.png);
+    background-repeat: no-repeat;
+    background-size: 100%;;
+    font-family: "Potta One", cursive;
+}
+h1{
+    color: lightpink;
+    text-align: center;
+}
+.historia{
+    background-color: #fff;
+    width: 300px;  
+    position: relative;
+    margin: auto;
+}
+#texto{
+    padding: 10px;
+}
