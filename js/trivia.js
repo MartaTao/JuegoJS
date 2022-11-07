@@ -22,6 +22,9 @@ let i =0;
 let totalPreguntas=cuestionario.length;
 const optionContainer=document.querySelector(".option-container");
 const indicador = document.querySelector(".answer-indicator");
+const startScreen = document.getElementById('start-screen');
+const juego=document.getElementById('juego');
+const musica = new Audio('../other/unveil.mp3');
 function muestraPregunta(i){
     let p = cuestionario[i];
     let pregunta = `<p>${p.pregunta}</p>`;
@@ -126,5 +129,14 @@ function incidacorPregunta(){
 function updateIndicador(resultado){
     indicador.children[numPregunta].classList.add(resultado);
 }
-muestraPregunta(i);
+const startGame = () => {
+    startScreen.classList.remove('active');
+    juego.classList.add('active');
+    muestraPregunta(i);
+}
+$('#btn-play').addEventListener('click', () => {
+    startGame();
+    musica.play();
+    musica.volume=0.2;
+});
 incidacorPregunta();

@@ -19,7 +19,7 @@ const tiempoTexto=5000;
 let historia = ["¡Enhorabuena! Has completado las tres pruebas que te preparado.",
 "Pero, ¿habrás supero las suficientes para deshacerte de mi virus?"
 ,"¡Dejemonos de intrigas! Veamos los resutados"];
-
+const cancion = new Audio('../other/everyHeart.mp3');
 
 function $(selector){
     return document.querySelector(selector);
@@ -399,7 +399,8 @@ $('#btn-level').addEventListener('click', (e) => {
 $('#btn-play').addEventListener('click', () => {
     initSudoku();
     startGame();
-    
+    cancion.play();
+    cancion.volume=0.2;
 });
 
 $('#btn-delete').addEventListener('click', () => {
@@ -419,5 +420,4 @@ const init = () => {
     initNumberInputEvent();
 }
 init();
-console.log(localStorage.getItem('prueba1'));
-console.log(localStorage.getItem('prueba2'));
+

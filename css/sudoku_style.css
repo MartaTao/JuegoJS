@@ -60,6 +60,7 @@ input {
 .btn {
     height: 80px;
     width: 280px;
+    background-color: #2a2a38;
     color: #6a6a6a;
     border-radius: 10px;
     display: grid;
