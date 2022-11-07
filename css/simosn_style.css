@@ -3,6 +3,8 @@ body {
     place-items: center;
     width: 100%;
     background-image: url(../images/cieloNubes.jpg);
+    background-repeat: no-repeat;
+    background-size: 180%;
     color: #fff;
     font-family: "Potta One", cursive;
 }
@@ -10,13 +12,14 @@ body {
     display: inline-grid;
     grid-gap: 10px;
     grid-template-columns: auto auto;
-    transform: rotate(45deg);
 }
 .simon {
     position: relative;
     margin-top: 50px;
-    padding: 10px;
-    border-radius: 5px;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #000;
+    transform: rotate(45deg);
 }
 .square {
     border-radius: 5px;
@@ -36,10 +39,17 @@ body {
 
 .blue {
     background-color: #08B2E3;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
 }
 
 .green {
-    background-color: #57A773;
+    width: 0; 
+     height: 0; 
+     border-left: 150px solid #57A773;
+     border-top: 75px solid transparent;
+     border-bottom: 75px solid transparent; 
 }
 
 .yellow {

@@ -10,11 +10,8 @@ class Simon{
         this.velocidad=1000;
         this.botonesBloqueados=true;
         this.botones=Array.from(botones);
-        this.display={
-            ronda
-        };
         this.errorSonido= new Audio('../other/error.wav');
-        this.botonesSonidos = [new Audio('../other/1.mp3'),new Audio('../other/2.mp3'),new Audio('../other/3.mp3'),new Audio('../other/4.mp3')];
+        this.botonesSonidos = [new Audio('../other/cat.mp3'),new Audio('../other/cat2.mp3'),new Audio('../other/cat3.mp3'),new Audio('../other/kitten.mp3')];
     }
     //Empieza el juego
     startGame(){
@@ -29,7 +26,6 @@ class Simon{
     //Actualiza la ronda
     updateRound(ronda){
         this.ronda=ronda;
-        this.display.ronda.textContent = `Ronda ${this.ronda}`;
     }
     //Crea la secuencia con la longitud del totalRondas con el valor obtenido de getColorRandom()
     creaSecuencia(){
