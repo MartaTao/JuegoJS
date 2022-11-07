@@ -98,7 +98,11 @@ class Simon{
 }
 let lineaHistoria = 0;
 const tiempoTexto=5000;
-let historia = ["¡Ya solo te queda la última prueba!","Para superarla necesitarás usar la logica.","¡Exacto! Tienes que completar un Sudoku.","No te preocupes, puedes elegir en que modo superarlo.","Para que vas que aunque te halla metido un virus no soy tan mala persona, eh."];
+let historia = ["¡Ya solo te queda la última prueba!",
+"Para superarla necesitarás usar la logica.",
+"¡Exacto! Tienes que completar un Sudoku.",
+"No te preocupes, puedes elegir en que modo superarlo.",
+"Para que vas que aunque te halla metido un virus no soy tan mala persona, eh."];
 function muestraTexto(){
     let texto = historia[lineaHistoria];
     document.getElementById("texto").innerHTML = texto;

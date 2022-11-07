@@ -12,7 +12,8 @@ let cuestionario = [
      "los fragmentos habra que buscar unidos tu y yo la suerte nos junto,se que los vamos muy pronto a encontrar",
      "Si lo sé. Me he dado cuenta, ya Si quiero vencer, un buen entrenador tengo que ser. Pero una pregunta, me voy a tener que hacer.Quién soy yo? Un misterio es"]},
 ];
-let historia = ["Una prueba menos, ya solo te quedan por realizar 2 más", "No te relajes la siguiente prueba requiere buena memoria","Esperemos que no seas daltónico", "Suerte!"];
+let historia = ["Una prueba menos, ya solo te quedan por realizar dos más", 
+"No te relajes la siguiente prueba requiere buena memoria","Esperemos que no seas daltónico", "¡Suerte!"];
 let respuestaCorrecta = ["respuesta0","respuesta3","respuesta1","respuesta2","respuesta0"];
 let numPregunta = 0;
 let numAciertos = 0;

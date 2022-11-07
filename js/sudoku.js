@@ -16,7 +16,9 @@ let su_answer = undefined;
 let celdaSelecionada = -1;
 let lineaHistoria = 0;
 const tiempoTexto=5000;
-let historia = ["¡Enhorabuena! Has completado las tres preubas que te preparado.","Pero, ¿habrás supero las suficientes para deshacerte de mi virus?","¡Dejemonos de intrigas! Veamos los resutados"];
+let historia = ["¡Enhorabuena! Has completado las tres pruebas que te preparado.",
+"Pero, ¿habrás supero las suficientes para deshacerte de mi virus?"
+,"¡Dejemonos de intrigas! Veamos los resutados"];
 
 
 function $(selector){
