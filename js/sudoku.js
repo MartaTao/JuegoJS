@@ -32,11 +32,14 @@ function muestraTexto(){
         }, tiempoTexto);
     }else{
         setTimeout(() => {
-            if(localStorage.getItem('prueba1')=='pasada'&&localStorage.getItem('prueba2')=='pasada'&&localStorage.getItem('prueba3')=='pasada'){
+            if(localStorage.getItem('prueba1')=='pasada' && localStorage.getItem('prueba2')=='pasada' && localStorage.getItem('prueba3')=='pasada'){
                 window.open("../html/ganadoCompleto.html");
                 window.close()
-            }else if(localStorage.getItem('prueba1')=='pasada'&&localStorage.getItem('prueba2')=='pasada'){
+            }else if(localStorage.getItem('prueba1')=='pasada' && localStorage.getItem('prueba2')=='pasada' || localStorage.getItem('prueba2')=='pasada' && localStorage.getItem('prueba3')=='pasada' || localStorage.getItem('prueba1')=='pasada' && localStorage.getItem('prueba3')=='pasada'){
                 window.open("../html/ganadoParcial.html");
+                window.close()
+            }else{
+                window.open("../html/gameOver.html");
                 window.close()
             }
         }, tiempoTexto);
@@ -414,3 +417,5 @@ const init = () => {
     initNumberInputEvent();
 }
 init();
+console.log(localStorage.getItem('prueba1'));
+console.log(localStorage.getItem('prueba2'));

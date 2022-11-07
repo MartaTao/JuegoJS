@@ -92,7 +92,7 @@ function validarRespuesta(){
                     document.querySelector(".option-container").innerHTML="";
                     if(numAciertos>=3){
                         document.getElementById("texto").innerHTML=`Enhorabuena has completado y pasado con éxito la primera prueba con un total de ${numAciertos} de 5 preguntas`;
-                        localStorage.setItem('prueba1s','pasda');
+                        localStorage.setItem('prueba1','pasada');
                     }else{
                         document.getElementById("texto").innerHTML=`Has completado la prueba pero no la has pasado has acertado ${numAciertos} de 5 preguntas`;
                         localStorage.setItem('prueba1','fallada');

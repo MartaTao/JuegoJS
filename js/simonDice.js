@@ -57,7 +57,7 @@ class Simon{
             localStorage.setItem('prueba2','fallada');
             if(localStorage.getItem('prueba1')=='fallada'){
                 setTimeout(() => {
-                    window.open("gameOver.html");
+                    window.open("../html/gameOver.html");
                     window.close();
                 }, tiempoTexto);
             }else{
