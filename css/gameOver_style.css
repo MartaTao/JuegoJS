@@ -1,0 +1,29 @@
+body{
+    background-image: url("../images/gameOver.jpg");
+    background-repeat: no-repeat;
+    background-size: 100%;;
+    font-family: "Potta One", cursive;
+}
+h1{
+    color: #fff;
+    text-align: center;
+}
+.historia{
+    background-color: #fff;
+    width: 300px;  
+    position: relative;
+    margin: auto;
+}
+#texto{
+    padding: 10px;
+}
+#btn{
+    height: 30px;
+    width: 150px;
+    background-color: violet;
+    text-align: center;
+    border-radius: 20px;
+    cursor: pointer;
+    position: relative;
+    margin: auto;
+}

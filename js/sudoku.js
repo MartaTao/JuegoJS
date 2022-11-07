@@ -208,8 +208,6 @@ const sudokuGen = (level) => {
     return undefined;
 }
 
-
-
 //Crea el cuadrado de 9x9 en cuadrados de 3x3
 const initGameGrid = () => {
     let index = 0;
