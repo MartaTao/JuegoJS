@@ -23,8 +23,8 @@ function muestraTexto(){
         }
     }else{
         setTimeout(() => {
-            //window.open("html/trivia.html");
-            //window.close();
+            window.open("html/trivia.html");
+            window.close();
         }, tiempoTexto);
     }
 }
