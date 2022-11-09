@@ -16,9 +16,9 @@ function muestraTexto(){
             muestraTexto();
         }, tiempoTexto);
         if(lineaHistoria==3){
-            fondo.style.backgroundImage="url(../images/gmail.png)";
+            fondo.style.backgroundImage="url('../images/gmail.png')";
         }else if(lineaHistoria==4){
-            fondo.style.backgroundImage="url(../images/correo.png)";
+            fondo.style.backgroundImage="url('../images/correo.png')";
         }
     }else{
         setTimeout(() => {
