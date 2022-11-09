@@ -56,7 +56,7 @@ function muestraTexto(){
     }else{
         setTimeout(() => {
             window.open("simonDice.html");
-            window.close();
+            //window.close();
         }, tiempoTexto);
     }
 }

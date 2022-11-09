@@ -16,14 +16,15 @@ function muestraTexto(){
             muestraTexto();
         }, tiempoTexto);
         if(lineaHistoria==3){
-            fondo.style.backgroundImage="url('../images/gmail.png')";
+            fondo.classList.add("gmail");
         }else if(lineaHistoria==4){
-            fondo.style.backgroundImage="url('../images/correo.png')";
+            fondo.classList.remove("gmail")
+            fondo.classList.add("correo");
         }
     }else{
         setTimeout(() => {
-            window.open("html/trivia.html");
-            window.close();
+            //window.open("html/trivia.html");
+            //window.close();
         }, tiempoTexto);
     }
 }

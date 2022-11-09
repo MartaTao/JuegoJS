@@ -1,8 +1,14 @@
-#fondo{
+.fondo{
     background-image: url(../images/habitacion.jpg);
     background-repeat: no-repeat;
     background-size: 100%;
     font-family: "Potta One", cursive;
+}
+.fondo.gmail{
+    background-image: url(../images/gmail.png);
+}
+.fondo.correo{
+    background-image: url(../images/correo.png);
 }
 .historia{
     background-color: #fff;
